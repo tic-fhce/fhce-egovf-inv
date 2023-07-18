@@ -15,10 +15,10 @@ import com.fhce.egovf.dao.pcDao;
 import com.fhce.egovf.model.pcModel;
 
 @RestController
-//@RequestMapping("fhce-egovf-inv/pc") //develop
-@RequestMapping("pc") // production
-@CrossOrigin("urlcliente/")
-//@CrossOrigin("http://192.168.31.45:8081/")
+@RequestMapping("fhce-egovf-inv/pc") //develop
+//@RequestMapping("pc") // production
+//@CrossOrigin("urlcliente/")
+@CrossOrigin("http://192.168.31.45:8081/")
 public class pcController {
 	
 	@Autowired

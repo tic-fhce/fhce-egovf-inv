@@ -15,10 +15,10 @@ import com.fhce.egovf.dao.monitorDao;
 import com.fhce.egovf.model.monitorModel;
 
 @RestController
-//@RequestMapping("fhce-egovf-inv/monitor") //develop
-@RequestMapping("monitor") //production
-@CrossOrigin("urlcliente/")
-//@CrossOrigin("http://192.168.31.45:8081/")
+@RequestMapping("fhce-egovf-inv/monitor") //develop
+//@RequestMapping("monitor") //production
+//@CrossOrigin("urlcliente/")
+@CrossOrigin("http://192.168.31.45:8081/")
 public class monitorController {
 	
 	@Autowired

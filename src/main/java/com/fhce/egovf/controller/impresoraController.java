@@ -15,10 +15,10 @@ import com.fhce.egovf.dao.impresoraDao;
 import com.fhce.egovf.model.impresoraModel;
 
 @RestController
-//@RequestMapping("fhce-egovf-inv/impresora") //develop
-@RequestMapping("impresora") // produccion
-@CrossOrigin("urlcliente/")
-//@CrossOrigin("http://192.168.31.45:8081/")
+@RequestMapping("fhce-egovf-inv/impresora") //develop
+//@RequestMapping("impresora") // produccion
+//@CrossOrigin("urlcliente/")
+@CrossOrigin("http://192.168.31.45:8081/")
 public class impresoraController {
 	
 	@Autowired

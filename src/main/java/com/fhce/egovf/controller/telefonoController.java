@@ -15,10 +15,10 @@ import com.fhce.egovf.dao.telefonoDao;
 import com.fhce.egovf.model.telefonoModel;
 
 @RestController
-//@RequestMapping("fhce-egovf-inv/telefono") //develop
-@RequestMapping("telefono") //production
-@CrossOrigin("urlcliente/")
-//@CrossOrigin("http://192.168.31.45:8081/")
+@RequestMapping("fhce-egovf-inv/telefono") //develop
+//@RequestMapping("telefono") //production
+//@CrossOrigin("urlcliente/")
+@CrossOrigin("http://192.168.31.45:8081/")
 
 public class telefonoController {
 	
