@@ -17,8 +17,8 @@ import com.fhce.egovf.model.impresoraModel;
 @RestController
 @RequestMapping("fhce-egovf-inv/impresora") //develop
 //@RequestMapping("impresora") // produccion
-//@CrossOrigin("urlcliente/")
-@CrossOrigin("http://192.168.31.45:8081/")
+//@CrossOrigin("https://svfhce.umsa.bo/")
+@CrossOrigin("http://192.168.31.45:8080/")
 public class impresoraController {
 	
 	@Autowired

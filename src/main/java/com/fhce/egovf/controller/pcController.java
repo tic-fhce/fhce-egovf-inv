@@ -17,8 +17,8 @@ import com.fhce.egovf.model.pcModel;
 @RestController
 @RequestMapping("fhce-egovf-inv/pc") //develop
 //@RequestMapping("pc") // production
-//@CrossOrigin("urlcliente/")
-@CrossOrigin("http://192.168.31.45:8081/")
+//@CrossOrigin("https://svfhce.umsa.bo/")
+@CrossOrigin("http://192.168.31.45:8080/")
 public class pcController {
 	
 	@Autowired

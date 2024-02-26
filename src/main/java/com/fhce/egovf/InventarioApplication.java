@@ -12,7 +12,7 @@ public class InventarioApplication /*extends SpringBootServletInitializer*/{
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(InventarioApplication.class);
-	} para produccion*/
+	}*//* para produccion*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(InventarioApplication.class, args);
