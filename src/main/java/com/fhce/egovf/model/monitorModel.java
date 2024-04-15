@@ -32,6 +32,9 @@ public class monitorModel {
 	@Column
 	private String _05tipo;
 	
+	@Column
+	private Long _06idubicacion;
+	
 
 	public Long getId() {
 		return id;
@@ -80,5 +83,14 @@ public class monitorModel {
 	public void set_05tipo(String _05tipo) {
 		this._05tipo = _05tipo;
 	}
+
+	public Long get_06idubicacion() {
+		return _06idubicacion;
+	}
+
+	public void set_06idubicacion(Long _06idubicacion) {
+		this._06idubicacion = _06idubicacion;
+	}
+	
 	
 }

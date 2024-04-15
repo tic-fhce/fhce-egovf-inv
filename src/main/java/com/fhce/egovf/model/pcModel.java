@@ -60,6 +60,18 @@ public class pcModel {
 	
 	@Column
 	private String _15detalle;
+	
+	@Column
+	private String _16switch;
+	
+	@Column
+	private String _17puerto;
+	
+	@Column
+	private String _18vlan;
+	
+	@Column
+	private Long _19idubicacion;
 
 	public Long getId() {
 		return id;
@@ -189,4 +201,36 @@ public class pcModel {
 		this._15detalle = _15detalle;
 	}
 
+	public String get_16switch() {
+		return _16switch;
+	}
+
+	public void set_16switch(String _16switch) {
+		this._16switch = _16switch;
+	}
+
+	public String get_17puerto() {
+		return _17puerto;
+	}
+
+	public void set_17puerto(String _17puerto) {
+		this._17puerto = _17puerto;
+	}
+
+	public String get_18vlan() {
+		return _18vlan;
+	}
+
+	public void set_18vlan(String _18vlan) {
+		this._18vlan = _18vlan;
+	}
+
+	public Long get_19idubicacion() {
+		return _19idubicacion;
+	}
+
+	public void set_19idubicacion(Long _19idubicacion) {
+		this._19idubicacion = _19idubicacion;
+	}
+	
 }

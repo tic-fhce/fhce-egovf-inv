@@ -30,6 +30,9 @@ public class impresoraModel {
 	
 	@Column
 	private String _05detalle;
+	
+	@Column
+	private Long _06idubicacion;
 
 	public Long getId() {
 		return id;
@@ -77,6 +80,14 @@ public class impresoraModel {
 
 	public void set_05detalle(String _05detalle) {
 		this._05detalle = _05detalle;
+	}
+
+	public Long get_06idubicacion() {
+		return _06idubicacion;
+	}
+
+	public void set_06idubicacion(Long _06idubicacion) {
+		this._06idubicacion = _06idubicacion;
 	}
 	
 }

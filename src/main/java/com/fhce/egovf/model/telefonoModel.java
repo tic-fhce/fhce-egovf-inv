@@ -30,6 +30,10 @@ public class telefonoModel {
 	
 	@Column
 	private String _05interno;
+	
+	@Column
+	private Long _06idubicacion;
+	
 
 	public Long getId() {
 		return id;
@@ -77,6 +81,14 @@ public class telefonoModel {
 
 	public void set_05interno(String _05interno) {
 		this._05interno = _05interno;
+	}
+
+	public Long get_06idubicacion() {
+		return _06idubicacion;
+	}
+
+	public void set_06idubicacion(Long _06idubicacion) {
+		this._06idubicacion = _06idubicacion;
 	}
 	
 }
