@@ -10,5 +10,5 @@ import com.fhce.egovf.model.pcModel;
 public interface pcDao extends JpaRepository<pcModel,Long> {
 	
 	@Query(value = "select * from pc where _01cif=?",nativeQuery=true)
-	List<pcModel>findPc(Long cif);
+	List<pcModel>getCpuCif(Long cif);
 }

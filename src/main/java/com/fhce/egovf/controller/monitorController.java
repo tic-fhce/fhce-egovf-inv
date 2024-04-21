@@ -29,13 +29,13 @@ public class monitorController {
 		return(this.monitorDao.findAll());
 	}
 	
-	@GetMapping("/listar")
-	public List<monitorModel>listar(@RequestParam (value="cif") Long cif){
-		return(this.monitorDao.findMonitor(cif));
+	@GetMapping("/getMonitorCif")
+	public List<monitorModel>getMonitorCif(@RequestParam (value="cif") Long cif){
+		return(this.monitorDao.getMonitorCif(cif));
 	}
 	
-	@PostMapping("/agregarMonitor")
-	public void agregarMonitor(@RequestBody monitorModel monitorModel) {
+	@PostMapping("/addMonitor")
+	public void addMonitor(@RequestBody monitorModel monitorModel) {
 		this.monitorDao.save(monitorModel);
 	}
 

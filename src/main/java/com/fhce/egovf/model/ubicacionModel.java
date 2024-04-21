@@ -23,7 +23,10 @@ public class ubicacionModel {
 	private String _02ambiente;
 	
 	@Column
-	private String _03ubicacion;
+	private String _03latitud;
+	
+	@Column
+	private String _04longitud;
 
 	public Long getId() {
 		return id;
@@ -49,12 +52,21 @@ public class ubicacionModel {
 		this._02ambiente = _02ambiente;
 	}
 
-	public String get_03ubicacion() {
-		return _03ubicacion;
+	public String get_03latitud() {
+		return _03latitud;
 	}
 
-	public void set_03ubicacion(String _03ubicacion) {
-		this._03ubicacion = _03ubicacion;
+	public void set_03latitud(String _03latitud) {
+		this._03latitud = _03latitud;
 	}
+
+	public String get_04longitud() {
+		return _04longitud;
+	}
+
+	public void set_04longitud(String _04longitud) {
+		this._04longitud = _04longitud;
+	}
+	
 	
 }

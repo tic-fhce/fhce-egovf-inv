@@ -15,7 +15,7 @@ import com.fhce.egovf.dao.pcDao;
 import com.fhce.egovf.model.pcModel;
 
 @RestController
-@RequestMapping("fhce-egovf-inv/pc") //develop
+@RequestMapping("fhce-egovf-inv/cpu") //develop
 //@RequestMapping("pc") // production
 //@CrossOrigin("https://svfhce.umsa.bo/")
 @CrossOrigin("http://192.168.31.45:8080/")
@@ -29,13 +29,13 @@ public class pcController {
 		return(this.pcDao.findAll());
 	}
 	
-	@GetMapping("/listar")
-	public List<pcModel> listar(@RequestParam (value="cif") Long cif){
-		return(this.pcDao.findPc(cif));
+	@GetMapping("/getCpuCif")
+	public List<pcModel> getCpuCif(@RequestParam (value="cif") Long cif){
+		return(this.pcDao.getCpuCif(cif));
 	}
 	
-	@PostMapping("/agregarPc")
-	public void agregarPC(@RequestBody pcModel pcModel) {
+	@PostMapping("/addCpu")
+	public void addCpu(@RequestBody pcModel pcModel) {
 		this.pcDao.save(pcModel);
 	}
 	

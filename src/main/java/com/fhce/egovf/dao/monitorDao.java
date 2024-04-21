@@ -10,6 +10,6 @@ import com.fhce.egovf.model.monitorModel;
 public interface monitorDao extends JpaRepository<monitorModel,Long>{
 	
 	@Query(value = "select * from monitor where _01cif=?",nativeQuery=true)
-	List<monitorModel>findMonitor(Long cif);
+	List<monitorModel>getMonitorCif(Long cif);
 
 }
