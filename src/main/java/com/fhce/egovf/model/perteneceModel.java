@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="impresora")
-public class impresoraModel {
+@Table(name="pertenece")
+public class perteneceModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique=true,nullable = false)
@@ -18,21 +18,17 @@ public class impresoraModel {
 	@Column
 	private Long _01cif;
 	
-	/*Datos de Impresora*/
 	@Column
 	private String _02codigo;
 	
 	@Column
-	private String _03marca;
+	private String _03fecha_add;
 	
 	@Column
-	private String _04modelo;
+	private String _04fecha_del;
 	
 	@Column
-	private String _05detalle;
-	
-	@Column
-	private Long _06idubicacion;
+	private int _05estado;
 
 	public Long getId() {
 		return id;
@@ -58,36 +54,28 @@ public class impresoraModel {
 		this._02codigo = _02codigo;
 	}
 
-	public String get_03marca() {
-		return _03marca;
+	public String get_03fecha_add() {
+		return _03fecha_add;
 	}
 
-	public void set_03marca(String _03marca) {
-		this._03marca = _03marca;
+	public void set_03fecha_add(String _03fecha_add) {
+		this._03fecha_add = _03fecha_add;
 	}
 
-	public String get_04modelo() {
-		return _04modelo;
+	public String get_04fecha_del() {
+		return _04fecha_del;
 	}
 
-	public void set_04modelo(String _04modelo) {
-		this._04modelo = _04modelo;
+	public void set_04fecha_del(String _04fecha_del) {
+		this._04fecha_del = _04fecha_del;
 	}
 
-	public String get_05detalle() {
-		return _05detalle;
+	public int get_05estado() {
+		return _05estado;
 	}
 
-	public void set_05detalle(String _05detalle) {
-		this._05detalle = _05detalle;
+	public void set_05estado(int _05estado) {
+		this._05estado = _05estado;
 	}
-
-	public Long get_06idubicacion() {
-		return _06idubicacion;
-	}
-
-	public void set_06idubicacion(Long _06idubicacion) {
-		this._06idubicacion = _06idubicacion;
-	}
-
+	
 }

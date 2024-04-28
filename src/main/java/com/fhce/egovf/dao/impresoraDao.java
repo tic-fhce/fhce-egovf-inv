@@ -10,6 +10,6 @@ import com.fhce.egovf.model.impresoraModel;
 public interface impresoraDao extends JpaRepository<impresoraModel,Long>{
 	
 	@Query(value = "select * from impresora where _01cif=?",nativeQuery=true)
-	List<impresoraModel>findImpresora(Long cif);
+	List<impresoraModel>getImpresoraCif(Long cif);
 
 }

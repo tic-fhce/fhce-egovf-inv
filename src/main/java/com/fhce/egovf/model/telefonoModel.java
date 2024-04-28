@@ -33,7 +33,6 @@ public class telefonoModel {
 	
 	@Column
 	private Long _06idubicacion;
-	
 
 	public Long getId() {
 		return id;
@@ -90,5 +89,5 @@ public class telefonoModel {
 	public void set_06idubicacion(Long _06idubicacion) {
 		this._06idubicacion = _06idubicacion;
 	}
-	
+
 }

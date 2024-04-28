@@ -72,6 +72,7 @@ public class pcModel {
 	
 	@Column
 	private Long _19idubicacion;
+	
 
 	public Long getId() {
 		return id;
@@ -232,5 +233,6 @@ public class pcModel {
 	public void set_19idubicacion(Long _19idubicacion) {
 		this._19idubicacion = _19idubicacion;
 	}
+	
 	
 }

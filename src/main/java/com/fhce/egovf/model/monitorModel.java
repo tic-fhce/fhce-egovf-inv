@@ -91,6 +91,5 @@ public class monitorModel {
 	public void set_06idubicacion(Long _06idubicacion) {
 		this._06idubicacion = _06idubicacion;
 	}
-	
-	
+
 }

@@ -10,6 +10,6 @@ import com.fhce.egovf.model.telefonoModel;
 public interface telefonoDao extends JpaRepository<telefonoModel,Long>{
 	
 	@Query(value = "select * from telefono where _01cif=?",nativeQuery=true)
-	List<telefonoModel>findTelefono(Long cif);
+	List<telefonoModel>getTelefonoCif(Long cif);
 
 }
