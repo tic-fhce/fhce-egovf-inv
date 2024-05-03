@@ -24,7 +24,7 @@ import com.fhce.egovf.obj.pcObj;
 @RequestMapping("fhce-egovf-inv/cpu") //develop
 //@RequestMapping("pc") // production
 //@CrossOrigin("https://svfhce.umsa.bo/")
-@CrossOrigin("http://192.168.31.45:8080/")
+@CrossOrigin("http://172.16.14.91:8080/")
 public class pcController {
 	
 	@Autowired

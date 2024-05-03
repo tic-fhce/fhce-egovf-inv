@@ -19,7 +19,7 @@ import com.fhce.egovf.model.ubicacionModel;
 @RequestMapping("fhce-egovf-inv/ubicacion") //develop
 //@RequestMapping("impresora") // produccion
 //@CrossOrigin("https://svfhce.umsa.bo/")
-@CrossOrigin("http://192.168.31.45:8080/")
+@CrossOrigin("http://172.16.14.91:8080/")
 public class ubicacionController {
 	
 	@Autowired

@@ -24,7 +24,7 @@ import com.fhce.egovf.obj.telefonoObj;
 @RequestMapping("fhce-egovf-inv/telefono") //develop
 //@RequestMapping("telefono") //production
 //@CrossOrigin("https://svfhce.umsa.bo/")
-@CrossOrigin("http://192.168.31.45:8080/")
+@CrossOrigin("http://172.16.14.91:8080/")
 
 public class telefonoController {
 	
