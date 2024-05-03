@@ -76,6 +76,7 @@ public class impresoraController {
 		perteneceModel.set_03fecha_add(date.getYear()+"-"+mes+"-"+dia);
 		perteneceModel.set_04fecha_del("Activo");
 		perteneceModel.set_05estado(1);
+		perteneceModel.set_06idtipo((long)3);
 		
 		this.perteneceDao.save(perteneceModel);
 		this.impresoraDao.save(impresoraModel);

@@ -80,6 +80,7 @@ public class pcController {
 		perteneceModel.set_03fecha_add(date.getYear()+"-"+mes+"-"+dia);
 		perteneceModel.set_04fecha_del("Activo");
 		perteneceModel.set_05estado(1);
+		perteneceModel.set_06idtipo((long)1);
 		
 		this.perteneceDao.save(perteneceModel);
 		this.pcDao.save(pcModel);

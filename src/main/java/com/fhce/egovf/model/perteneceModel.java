@@ -29,6 +29,8 @@ public class perteneceModel {
 	
 	@Column
 	private int _05estado;
+	
+	@Column Long _06idtipo;
 
 	public Long getId() {
 		return id;
@@ -77,5 +79,14 @@ public class perteneceModel {
 	public void set_05estado(int _05estado) {
 		this._05estado = _05estado;
 	}
+
+	public Long get_06idtipo() {
+		return _06idtipo;
+	}
+
+	public void set_06idtipo(Long _06idtipo) {
+		this._06idtipo = _06idtipo;
+	}
+	
 	
 }

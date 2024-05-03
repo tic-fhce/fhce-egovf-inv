@@ -78,6 +78,7 @@ public class monitorController {
 		perteneceModel.set_03fecha_add(date.getYear()+"-"+mes+"-"+dia);
 		perteneceModel.set_04fecha_del("Activo");
 		perteneceModel.set_05estado(1);
+		perteneceModel.set_06idtipo((long)2);
 		
 		this.perteneceDao.save(perteneceModel);
 		this.monitorDao.save(monitorModel);
