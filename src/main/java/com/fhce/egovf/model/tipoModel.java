@@ -20,6 +20,9 @@ public class tipoModel {
 	
 	@Column
 	private String _02nombre;
+	
+	@Column
+	private String _03icono;
 
 	public Long getId() {
 		return id;
@@ -44,6 +47,16 @@ public class tipoModel {
 	public void set_02nombre(String _02nombre) {
 		this._02nombre = _02nombre;
 	}
+
+	public String get_03icono() {
+		return _03icono;
+	}
+
+	public void set_03icono(String _03icono) {
+		this._03icono = _03icono;
+	}
+	
+	
 	
 	
 }

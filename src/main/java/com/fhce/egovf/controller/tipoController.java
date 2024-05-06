@@ -15,7 +15,7 @@ import com.fhce.egovf.model.tipoModel;
 @RequestMapping("fhce-egovf-inv/tipo") //develop
 //@RequestMapping("monitor") //production
 //@CrossOrigin("https://svfhce.umsa.bo/")
-@CrossOrigin("http://172.16.14.91:8080/")
+@CrossOrigin("http://192.168.31.45:8080/")
 public class tipoController {
 	
 	@Autowired

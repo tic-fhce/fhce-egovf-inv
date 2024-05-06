@@ -15,7 +15,7 @@ import com.fhce.egovf.model.caracteristicaModel;
 @RequestMapping("fhce-egovf-inv/caracteristica") //develop
 //@RequestMapping("impresora") // produccion
 //@CrossOrigin("https://svfhce.umsa.bo/")
-@CrossOrigin("http://172.16.14.91:8080/")
+@CrossOrigin("http://192.168.31.45:8080/")
 public class caracteristicaController {
 	
 	@Autowired

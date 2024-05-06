@@ -1,5 +1,6 @@
 package com.fhce.egovf.obj;
 
+import java.util.List;
 
 public class atencionObj {
 	
@@ -9,7 +10,9 @@ public class atencionObj {
 	private String fechasolicitud;
 	private String horasolicitud;
 	private String equipo;
-	private String resumen;
+	private Long idtipo;
+	private Long idcaracteristica;
+	private List<String> resumen;
 	private String caracteristica;
 	private String especificacion;
 	private String error;
@@ -18,8 +21,8 @@ public class atencionObj {
 	private String horaatencion;
 	private int estado;
 	public atencionObj(Long id, Long cif, String codigo, String fechasolicitud, String horasolicitud, String equipo,
-			String resumen, String caracteristica, String especificacion, String error, String detalle,
-			String fechaatencion, String horaatencion, int estado) {
+			List<String> resumen, String caracteristica, String especificacion, String error, String detalle,
+			String fechaatencion, String horaatencion, int estado, Long idtipo,Long idcaracteristica) {
 		this.id = id;
 		this.cif = cif;
 		this.codigo = codigo;
@@ -34,6 +37,8 @@ public class atencionObj {
 		this.fechaatencion = fechaatencion;
 		this.horaatencion = horaatencion;
 		this.estado = estado;
+		this.idtipo = idtipo;
+		this.idcaracteristica = idcaracteristica;
 	}
 	public Long getId() {
 		return id;
@@ -71,10 +76,10 @@ public class atencionObj {
 	public void setEquipo(String equipo) {
 		this.equipo = equipo;
 	}
-	public String getResumen() {
+	public List<String> getResumen() {
 		return resumen;
 	}
-	public void setResumen(String resumen) {
+	public void setResumen(List<String> resumen) {
 		this.resumen = resumen;
 	}
 	public String getCaracteristica() {
@@ -119,5 +124,16 @@ public class atencionObj {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	
+	public Long getIdtipo() {
+		return idtipo;
+	}
+	public void setIdtipo(Long idtipo) {
+		this.idtipo = idtipo;
+	}
+	public Long getIdcaracteristica() {
+		return idcaracteristica;
+	}
+	public void setIdcaracteristica(Long idcaracteristica) {
+		this.idcaracteristica = idcaracteristica;
+	}
 }

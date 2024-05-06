@@ -24,7 +24,7 @@ import com.fhce.egovf.obj.monitorObj;
 @RequestMapping("fhce-egovf-inv/monitor") //develop
 //@RequestMapping("monitor") //production
 //@CrossOrigin("https://svfhce.umsa.bo/")
-@CrossOrigin("http://172.16.14.91:8080/")
+@CrossOrigin("http://192.168.31.45:8080/")
 public class monitorController {
 	
 	@Autowired

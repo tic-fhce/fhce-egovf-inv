@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +36,7 @@ import com.fhce.egovf.obj.atencionObj;
 @RequestMapping("fhce-egovf-inv/atencion") //develop
 //@RequestMapping("impresora") // produccion
 //@CrossOrigin("https://svfhce.umsa.bo/")
-@CrossOrigin("http://172.16.14.91:8080/")
+@CrossOrigin("http://192.168.31.45:8080/")
 public class atencionController {
 	
 	@Autowired
@@ -89,7 +90,7 @@ public class atencionController {
 		List<tipoModel> tipoModel = this.tipoDao.findAll();
 		List<caracteristicaModel> caracteristicaModel = this.caractersiticaDao.findAll();
 		List<atencionObj> atencionObj = new ArrayList<atencionObj>();
-		String resumen = "";
+		List<String> resumen = new ArrayList<String>();
 		String equipo = "";
 		String caracteristica = "";
 		for(int i=0;i<atencionModel.size();i++) {
@@ -100,7 +101,11 @@ public class atencionController {
 					List<pcModel> pcModel =  this.pcDao.getCpuCif(cif);
 					for (int j =0;j<pcModel.size();j++) {
 						if(atencionModel.get(i).get_02codigo().equals(pcModel.get(j).get_02codigo())) {
-							resumen = pcModel.get(j).get_08sistema()+"<br>"+pcModel.get(i).get_04memorias()+" - "+pcModel.get(i).get_05capacidad()+"<br>"+pcModel.get(i).get_06micro()+" de "+pcModel.get(i).get_07micro_capacidad()+"<br>"+pcModel.get(i).get_09disco()+"<br>"+pcModel.get(i).get_15detalle()+"<br>"+pcModel.get(i).get_03fuente()+"<br>"+pcModel.get(i).get_14cortapico();
+							resumen.add("S.O. : "+pcModel.get(j).get_08sistema());
+							resumen.add("RAM : "+pcModel.get(j).get_04memorias()+" - "+pcModel.get(j).get_05capacidad());
+							resumen.add("MP : "+pcModel.get(j).get_06micro()+" de "+pcModel.get(j).get_07micro_capacidad());
+							resumen.add("HHDD : "+pcModel.get(j).get_09disco());
+							resumen.add("Detalle : "+pcModel.get(j).get_15detalle());
 						}
 					}
 					break;
@@ -108,7 +113,9 @@ public class atencionController {
 					List<monitorModel> monitorModel = this.monitorDao.getMonitorCif(cif);
 					for (int j = 0;j<monitorModel.size();j++) {
 						if(atencionModel.get(i).get_02codigo().equals(monitorModel.get(j).get_02codigo())) {
-							resumen = monitorModel.get(j).get_03marca()+"<br>"+monitorModel.get(j).get_04pulgadas()+"<br>"+monitorModel.get(j).get_05tipo();
+							resumen.add("Marca : "+monitorModel.get(j).get_03marca());
+							resumen.add("Pulgadas : "+monitorModel.get(j).get_04pulgadas());
+							resumen.add("Tipo : "+monitorModel.get(j).get_05tipo());							
 						}
 					}
 					break;
@@ -116,7 +123,9 @@ public class atencionController {
 					List<impresoraModel> impresoraModel = this.impresoraDao.getImpresoraCif(cif);
 					for (int j=0;j<impresoraModel.size();j++) {
 						if(atencionModel.get(i).get_02codigo().equals(impresoraModel.get(j).get_02codigo())) {
-							resumen = impresoraModel.get(j).get_03marca()+"<br>"+impresoraModel.get(j).get_04modelo()+"<br>"+impresoraModel.get(j).get_05detalle();
+							resumen.add("Marca : "+impresoraModel.get(j).get_03marca());
+							resumen.add("Modelo : "+impresoraModel.get(j).get_04modelo());
+							resumen.add("Detalle : "+impresoraModel.get(j).get_05detalle());							
 						}
 					}
 					break;
@@ -124,7 +133,9 @@ public class atencionController {
 					List<telefonoModel> telefonoModel = this.telefonoDao.getTelefonoCif(cif);
 					for(int j=0;j<telefonoModel.size();j++) {
 						if(atencionModel.get(i).get_02codigo().equals(telefonoModel.get(j).get_02codigo())) {
-							resumen = telefonoModel.get(j).get_03marca()+"<br>"+telefonoModel.get(j).get_04ip()+"<br>"+telefonoModel.get(j).get_05interno();
+							resumen.add("Marca : "+telefonoModel.get(j).get_03marca());
+							resumen.add("Ip : "+telefonoModel.get(j).get_04ip());
+							resumen.add("Interno : "+telefonoModel.get(j).get_05interno());							
 						}
 					}
 					break;
@@ -132,7 +143,12 @@ public class atencionController {
 					List<pcModel> internetModel = this.pcDao.getCpuCif(cif);
 					for(int j=0;j<internetModel.size();j++) {
 						if(atencionModel.get(i).get_02codigo().equals(internetModel.get(j).get_02codigo())) {
-							resumen = internetModel.get(j).get_10ip()+"<br>"+internetModel.get(j).get_12dns()+"<br>"+internetModel.get(j).get_13segmento()+"<br>"+internetModel.get(j).get_11mac()+"<br>"+internetModel.get(j).get_16switch()+"-"+internetModel.get(j).get_17puerto()+" - "+internetModel.get(j).get_18vlan();
+							resumen.add("IP : "+internetModel.get(j).get_10ip());
+							resumen.add("Marcara : "+internetModel.get(j).get_12dns());
+							resumen.add("Segmento : "+internetModel.get(j).get_13segmento());
+							resumen.add("MAC : "+internetModel.get(j).get_11mac());
+							resumen.add("Swicht : "+internetModel.get(j).get_16switch());
+							resumen.add("Puerto - Vlan : "+internetModel.get(j).get_17puerto()+" - "+internetModel.get(j).get_18vlan());							
 						}
 					}
 					break;
@@ -149,11 +165,32 @@ public class atencionController {
 			}
 			atencionObj at = new atencionObj(atencionModel.get(i).getId(), atencionModel.get(i).get_01cif(), atencionModel.get(i).get_02codigo(), atencionModel.get(i).get_03fechasolicitud(), atencionModel.get(i).get_04horasolicitud(), equipo,
 					resumen, caracteristica, atencionModel.get(i).get_07especificacion(), atencionModel.get(i).get_08error(), atencionModel.get(i).get_09detalle(),
-					atencionModel.get(i).get_10fechaatencion(), atencionModel.get(i).get_11horaatencion() ,atencionModel.get(i).get_12estado());
+					atencionModel.get(i).get_10fechaatencion(), atencionModel.get(i).get_11horaatencion() ,atencionModel.get(i).get_12estado(),atencionModel.get(i).get_05idtipo(),atencionModel.get(i).get_06idcaracteristica());
 			
 			atencionObj.add(at);
 		}
 		return(atencionObj);
+	}
+	@PutMapping("/updateAtencion")
+	public void updateAtencion(@RequestBody atencionModel atencionModel) {
+		
+		LocalDate date = LocalDate.now();
+		LocalDateTime hora = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		
+		int m = date.getMonthValue();
+		int d = date.getDayOfMonth();
+		String mes = ""+m;
+		String dia = ""+d;
+		if(m<10)
+			mes = "0"+m;
+		if(d<10)
+			dia = "0"+d;
+		
+		atencionModel.set_03fechasolicitud(date.getYear()+"-"+mes+"-"+dia);
+		atencionModel.set_04horasolicitud(hora.format(formatter));
+		
+		this.atencionDao.save(atencionModel);
 	}
 
 }
