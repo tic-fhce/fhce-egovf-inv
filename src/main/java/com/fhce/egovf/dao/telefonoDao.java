@@ -11,5 +11,8 @@ public interface telefonoDao extends JpaRepository<telefonoModel,Long>{
 	
 	@Query(value = "select * from telefono where _01cif=?",nativeQuery=true)
 	List<telefonoModel>getTelefonoCif(Long cif);
+	
+	@Query(value = "select * from telefono where _02codigo=?",nativeQuery=true)
+	List<telefonoModel>getTelefono(String codigo);
 
 }

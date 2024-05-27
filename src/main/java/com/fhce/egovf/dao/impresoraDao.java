@@ -11,5 +11,8 @@ public interface impresoraDao extends JpaRepository<impresoraModel,Long>{
 	
 	@Query(value = "select * from impresora where _01cif=?",nativeQuery=true)
 	List<impresoraModel>getImpresoraCif(Long cif);
+	
+	@Query(value = "select * from impresora where _02codigo=?",nativeQuery=true)
+	List<impresoraModel>getImpresora(String codigo);
 
 }

@@ -11,5 +11,8 @@ public interface monitorDao extends JpaRepository<monitorModel,Long>{
 	
 	@Query(value = "select * from monitor where _01cif=?",nativeQuery=true)
 	List<monitorModel>getMonitorCif(Long cif);
+	
+	@Query(value = "select * from monitor where _02codigo=?",nativeQuery=true)
+	List<monitorModel>getMonitor(String codigo);
 
 }

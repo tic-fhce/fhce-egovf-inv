@@ -53,12 +53,13 @@ public class equipoController {
 	
 	@GetMapping("/getListaEquipo")
 	public List<equipoObj> getListaEquipo(@RequestParam (value="id") Long id){
-		List<String> resumen = new ArrayList<String>();
+		List<String> resumen;
 		List<equipoObj>equipoObj = new ArrayList<equipoObj>();
 		switch(id.intValue()) {
 			case(1):
 				List<pcModel>pcModel = this.pcDao.findAll();
-				for(int i=0;i<pcModel.size();i++) {
+				for(int i= 0;i<pcModel.size();i++) {
+					resumen = new ArrayList<String>();
 					resumen.add("S.O. : "+pcModel.get(i).get_08sistema());
 					resumen.add("RAM : "+pcModel.get(i).get_04memorias()+" - "+pcModel.get(i).get_05capacidad());
 					resumen.add("MP : "+pcModel.get(i).get_06micro()+" de "+pcModel.get(i).get_07micro_capacidad());
@@ -70,6 +71,7 @@ public class equipoController {
 			case(2):
 				List<monitorModel> monitorModel = this.monitorDao.findAll();
 				for (int i = 0;i<monitorModel.size();i++) {
+					resumen = new ArrayList<String>();
 					resumen.add("Marca : "+monitorModel.get(i).get_03marca());
 					resumen.add("Pulgadas : "+monitorModel.get(i).get_04pulgadas());
 					resumen.add("Tipo : "+monitorModel.get(i).get_05tipo());
@@ -79,6 +81,7 @@ public class equipoController {
 			case(3):
 				List<impresoraModel> impresoraModel = this.impresoraDao.findAll();
 				for (int i=0;i<impresoraModel.size();i++) {
+					resumen = new ArrayList<String>();
 					resumen.add("Marca : "+impresoraModel.get(i).get_03marca());
 					resumen.add("Modelo : "+impresoraModel.get(i).get_04modelo());
 					resumen.add("Detalle : "+impresoraModel.get(i).get_05detalle());
@@ -89,6 +92,7 @@ public class equipoController {
 			case(4):
 				List<telefonoModel> telefonoModel = this.telefonoDao.findAll();
 				for(int i=0;i<telefonoModel.size();i++) {
+					resumen = new ArrayList<String>();
 					resumen.add("Marca : "+telefonoModel.get(i).get_03marca());
 					resumen.add("Ip : "+telefonoModel.get(i).get_04ip());
 					resumen.add("Interno : "+telefonoModel.get(i).get_05interno());
@@ -98,6 +102,7 @@ public class equipoController {
 			case(5):
 				List<pcModel> internetModel = this.pcDao.findAll();
 				for(int i=0;i<internetModel.size();i++) {
+					resumen = new ArrayList<String>();
 					resumen.add("IP : "+internetModel.get(i).get_10ip());
 					resumen.add("Marcara : "+internetModel.get(i).get_12dns());
 					resumen.add("Segmento : "+internetModel.get(i).get_13segmento());
