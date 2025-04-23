@@ -1,15 +1,13 @@
 package com.fhce.inv.dao;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.fhce.inv.model.equipoModel;
+//import com.fhce.inv.model.tipoModel;
 
-public interface equipoDao extends JpaRepository<equipoModel, Long>{
-	
-	@Query(value = "select * from equipo where _04idtipo=?",nativeQuery=true)
-	List<equipoModel>getEquipoTipo(Long id);
-
+@Repository
+public interface equipoDao extends JpaRepository<equipoModel, Long> {
+    List<equipoModel> findByTipoIdTipo(Long idTipo);
 }

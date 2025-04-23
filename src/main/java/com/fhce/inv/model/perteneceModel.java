@@ -1,40 +1,52 @@
 package com.fhce.inv.model;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 @Entity
-@Table(name="pertenece")
+@Table(name = "pertenece")
 public class perteneceModel {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique=true,nullable = false)
-	private Long id;
+	@Column(name = "id", unique = true, nullable = false)
+	private Long idPertenece;
 	
-	@Column(name = "_01cif")
+	@Column(name = "_01cif", nullable = false)
 	private Long cif;
 	
-	@Column(name = "_02idequipo")
-	private Long idEquipo;
+	@ManyToOne
+    @JoinColumn(name = "_02idequipo", nullable = false)
+    private equipoModel equipo;
 	
-	@Column(name = "_03fechaadd")
-	private String fechaAdd;
+	@Column(name = "_03fechaadd", nullable = false)
+	private LocalDate fechaAdd;
 	
-	@Column(name = "_04fechadel")
-	private String fechaDel;
+	@Column(name = "_04fechadel", nullable = false)
+	private LocalDate fechaDel;
 	
-	@Column(name = "_05estado")
+	@Column(name = "_05estado", nullable = false)
 	private String estado;
+	
+	@OneToMany(mappedBy = "pertenece")
+    private List<atencionModel> atenciones;
+	
 }

@@ -1,7 +1,7 @@
 package com.fhce.inv.obj;
 
+import java.time.LocalDate;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,22 +10,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class atencionDtoObjResponce {
-	
-	private Long id;
-	private Long cif;
-	private String codigo;
-	private String fechasolicitud;
-	private String horasolicitud;
-	private String equipo;
-	private Long idtipo;
-	private Long idcaracteristica;
-	private List<String> resumen;
-	private String caracteristica;
-	private String especificacion;
-	private String error;
-	private String detalle;
-	private String fechaatencion;
-	private String horaatencion;
-	private int estado;
-
+    private Long idAtencion;
+    private Long cif;
+    private String codigo;
+    private LocalDate fechaSolicitud;
+    private String horaSolicitud;
+    private String equipo;
+    private Long idTipo;
+    private String especificacion;
+    private String error;
+    private String detalle;
+    private LocalDate fechaAtencion;
+    private String horaAtencion;
+    private int estado;
+    private List<String> resumen;
 }
+

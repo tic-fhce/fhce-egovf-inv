@@ -2,11 +2,12 @@ package com.fhce.inv.service;
 
 import java.util.List;
 
-import com.fhce.inv.obj.tipoDtoRequest;
-import com.fhce.inv.obj.tipoDtoResponce;
+import com.fhce.inv.obj.equipoResponseDTO;
+import com.fhce.inv.obj.tipoRequestDTO;
+import com.fhce.inv.obj.tipoResponseDTO;
 
 public interface tipoService {
-	List<tipoDtoResponce>getTipo();
-	tipoDtoResponce addTipo(tipoDtoRequest tipoDtoRequest);
-
+    tipoResponseDTO addTipo(tipoRequestDTO tipoRequestDTO);
+    tipoResponseDTO getTipo(Long id);
+    List<equipoResponseDTO> getEquiposPorTipo(Long idTipo);
 }
