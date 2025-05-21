@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class equipoCompletoRequestDTO {
     private equipoRequestDTO equipoRequestDTO;
+    private componentePcRequestDTO componentePcRequestDTO;
     private perteneceRequestDTO perteneceRequestDTO;
     private redRequestDTO redRequestDTO;
     private ubicacionRequestDTO ubicacionRequestDTO;

@@ -2,6 +2,7 @@ package com.fhce.inv.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -47,11 +48,16 @@ public class equipoServiceImp implements equipoService {
     @Override
     @Transactional
     public equipoResponseDTO addEquipo(
-            equipoRequestDTO equipoRequestDTO, 
-            perteneceRequestDTO perteneceRequestDTO,
-            redRequestDTO redRequestDTO,
-            ubicacionRequestDTO ubicacionRequestDTO,
-            softwareRequestDTO softwareRequestDTO) {
+    		equipoRequestDTO equipoRequestDTO,
+    		componentePcRequestDTO componentesPCRequestDTO,
+    		perteneceRequestDTO perteneceRequestDTO,
+    		redRequestDTO redRequestDTO,
+    		ubicacionRequestDTO ubicacionRequestDTO,
+    		softwareRequestDTO softwareRequestDTO) {
+    	
+    	if (equipoDao.existsByCodigo(equipoRequestDTO.getCodigo())) {
+            throw new RuntimeException("Ya existe un equipo con el código: " + equipoRequestDTO.getCodigo());
+        }
         
         tipoModel tipo = tipoDao.findById(equipoRequestDTO.getIdTipo())
                 .orElseThrow(() -> new RuntimeException("Tipo no encontrado"));
@@ -60,6 +66,24 @@ public class equipoServiceImp implements equipoService {
         equipo.setTipo(tipo);
         
         equipoModel savedEquipo = equipoDao.save(equipo);
+        
+        if (componentesPCRequestDTO != null) {
+            componentePcModel componentePc = new componentePcModel();
+            componentePc.setFuente(componentesPCRequestDTO.getFuente());
+            componentePc.setMemorias(componentesPCRequestDTO.getMemorias());
+            componentePc.setCapacidad(componentesPCRequestDTO.getCapacidad());
+            componentePc.setMicro(componentesPCRequestDTO.getMicro());
+            componentePc.setMicroCapacidad(componentesPCRequestDTO.getMicroCapacidad());
+            componentePc.setDisco(componentesPCRequestDTO.getDisco());
+            componentePc.setCortapico(componentesPCRequestDTO.getCortapico());
+            componentePc.setDetalle(componentesPCRequestDTO.getDetalle());
+            componentePc.setTeclado(componentesPCRequestDTO.getTeclado());
+            componentePc.setMouse(componentesPCRequestDTO.getMouse());
+            componentePc.setVersionamiento(componentesPCRequestDTO.getVersionamiento());
+            componentePc.setEquipo(savedEquipo);
+            
+            componentePcDao.save(componentePc);
+        }
         
         if (perteneceRequestDTO != null) {
             perteneceModel pertenece = new perteneceModel();
@@ -126,7 +150,7 @@ public class equipoServiceImp implements equipoService {
         return responseDTO;
     }
 
-    @Override
+    /*@Override
     @Transactional
     public equipoResponseDTO addCpu(
             equipoRequestDTO equipoRequestDTO, 
@@ -227,7 +251,7 @@ public class equipoServiceImp implements equipoService {
         responseDTO.setTipoNombre(tipo.getNombre());
         
         return responseDTO;
-    }
+    }*/
     
     @Override
     @Transactional

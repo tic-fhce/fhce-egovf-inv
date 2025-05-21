@@ -34,7 +34,16 @@ public class perteneceServiceImp implements perteneceService {
         
         List<perteneceModel> asignacionesActivas = perteneceDao.findByEquipoAndEstado(equipo, "activo");
         if (!asignacionesActivas.isEmpty()) {
-            throw new RuntimeException("Este equipo ya está asignado a otra persona. Por favor, finalice la asignación actual antes de crear una nueva.");
+            perteneceModel asignacionActiva = asignacionesActivas.get(0);
+            
+            //Si el equipo ya está asignado al mismo CIF
+            if (asignacionActiva.getCif().equals(perteneceRequestDTO.getCif())) {
+                throw new RuntimeException("Este equipo ya está asignado a este CIF: " + perteneceRequestDTO.getCif());
+            } else {
+                // Si está asignado a otro CIF
+                throw new RuntimeException("Este equipo ya está asignado a otro usuario con CIF: " + 
+                    asignacionActiva.getCif() + ". Por favor, finalice la asignación actual antes de crear una nueva.");
+            }
         }
 
         perteneceModel pertenece = new perteneceModel();
@@ -148,63 +157,39 @@ public class perteneceServiceImp implements perteneceService {
         List<perteneceModel> asignacionesActivas = perteneceDao.findByEquipoAndEstado(equipo, "activo");
         
         if (asignacionesActivas.isEmpty()) {
-            perteneceModel nuevaPertenece = new perteneceModel();
-            nuevaPertenece.setEquipo(equipo);
-            nuevaPertenece.setCif(perteneceRequestDTO.getCif());
-            nuevaPertenece.setEstado("activo");
-            
-            if (perteneceRequestDTO.getFechaAdd() != null) {
-                nuevaPertenece.setFechaAdd(perteneceRequestDTO.getFechaAdd());
-            }
-            
-            if (perteneceRequestDTO.getFechaDel() != null) {
-                nuevaPertenece.setFechaDel(perteneceRequestDTO.getFechaDel());
-            }
-            
-            perteneceModel savedPertenece = perteneceDao.save(nuevaPertenece);
-            
-            perteneceResponseDTO response = new perteneceResponseDTO();
-            response.setIdPertenece(savedPertenece.getIdPertenece());
-            response.setCif(savedPertenece.getCif());
-            response.setIdEquipo(equipo.getIdequipo());
-            response.setCodigoEquipo(equipo.getCodigo());
-            response.setFechaAdd(savedPertenece.getFechaAdd());
-            response.setFechaDel(savedPertenece.getFechaDel());
-            response.setEstado(savedPertenece.getEstado());
-            
-            return response;
-        } else {
-            perteneceModel pertenece = asignacionesActivas.get(0);
-            
-            if (perteneceRequestDTO.getCif() != null) {
-                pertenece.setCif(perteneceRequestDTO.getCif());
-            }
-            
-            if (perteneceRequestDTO.getFechaAdd() != null) {
-                pertenece.setFechaAdd(perteneceRequestDTO.getFechaAdd());
-            }
-            
-            if (perteneceRequestDTO.getFechaDel() != null) {
-                pertenece.setFechaDel(perteneceRequestDTO.getFechaDel());
-            }
-            
-            if (perteneceRequestDTO.getEstado() != null) {
-                pertenece.setEstado(perteneceRequestDTO.getEstado());
-            }
-            
-            perteneceModel updatedPertenece = perteneceDao.save(pertenece);
-            
-            perteneceResponseDTO response = new perteneceResponseDTO();
-            response.setIdPertenece(updatedPertenece.getIdPertenece());
-            response.setCif(updatedPertenece.getCif());
-            response.setIdEquipo(equipo.getIdequipo());
-            response.setCodigoEquipo(equipo.getCodigo());
-            response.setFechaAdd(updatedPertenece.getFechaAdd());
-            response.setFechaDel(updatedPertenece.getFechaDel());
-            response.setEstado(updatedPertenece.getEstado());
-            
-            return response;
+            throw new RuntimeException("No hay asignaciones activas para este equipo");
         }
+
+        perteneceModel pertenece = asignacionesActivas.get(0);
+        
+        if (perteneceRequestDTO.getCif() != null) {
+            pertenece.setCif(perteneceRequestDTO.getCif());
+        }
+        
+        if (perteneceRequestDTO.getFechaAdd() != null) {
+            pertenece.setFechaAdd(perteneceRequestDTO.getFechaAdd());
+        }
+        
+        if (perteneceRequestDTO.getFechaDel() != null) {
+            pertenece.setFechaDel(perteneceRequestDTO.getFechaDel());
+        }
+        
+        if (perteneceRequestDTO.getEstado() != null) {
+            pertenece.setEstado(perteneceRequestDTO.getEstado());
+        }
+        
+        perteneceModel updatedPertenece = perteneceDao.save(pertenece);
+        
+        perteneceResponseDTO response = new perteneceResponseDTO();
+        response.setIdPertenece(updatedPertenece.getIdPertenece());
+        response.setCif(updatedPertenece.getCif());
+        response.setIdEquipo(equipo.getIdequipo());
+        response.setCodigoEquipo(equipo.getCodigo());
+        response.setFechaAdd(updatedPertenece.getFechaAdd());
+        response.setFechaDel(updatedPertenece.getFechaDel());
+        response.setEstado(updatedPertenece.getEstado());
+        
+        return response;
     }
     
     @Override

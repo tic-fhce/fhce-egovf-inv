@@ -17,17 +17,18 @@ public interface equipoService {
     
     equipoResponseDTO updateEquipo(Long idEquipo, equipoRequestDTO equipoRequestDTO);*/
 	
-	equipoResponseDTO addCpu(
+	/*equipoResponseDTO addCpu(
 		equipoRequestDTO equipoRequestDTO, 
         componentePcRequestDTO componentePcRequestDTO, 
         perteneceRequestDTO perteneceRequestDTO,
         redRequestDTO redRequestDTO,
         ubicacionRequestDTO ubicacionRequestDTO,
         softwareRequestDTO softwareRequestDTO
-	);
+	);*/
 	    
     equipoResponseDTO addEquipo(
         equipoRequestDTO equipoRequestDTO, 
+        componentePcRequestDTO componentePcRequestDTO,
         perteneceRequestDTO perteneceRequestDTO,
         redRequestDTO redRequestDTO,
         ubicacionRequestDTO ubicacionRequestDTO,

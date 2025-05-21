@@ -1,7 +1,5 @@
 package com.fhce.inv.obj;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,7 @@ public class equipoRequestDTO {
     private String macSerie;
     private String marca;
     
-    @JsonIgnore
+    ///@JsonIgnore
     private Long idTipo;
     
     private String modelo;
