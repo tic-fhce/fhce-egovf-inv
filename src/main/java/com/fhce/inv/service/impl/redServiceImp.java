@@ -29,6 +29,67 @@ public class redServiceImp implements redService {
     @Override
     @Transactional
     public redResponseDTO addRed(redRequestDTO redRequestDTO) {
+        if (redRequestDTO.getIdEquipo() == null) {
+            throw new RuntimeException("El ID del equipo es requerido");
+        }
+        
+        equipoModel equipo = equipoDao.findById(redRequestDTO.getIdEquipo())
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+
+        List<redModel> redesConPuerto = redDao.findByPuertoAndEstado(redRequestDTO.getPuerto(), 1);
+        for (redModel redExistente : redesConPuerto) {
+            if (!redExistente.getEquipo().getIdequipo().equals(redRequestDTO.getIdEquipo())) {
+                throw new RuntimeException("El puerto ya está en uso por otro equipo");
+            }
+        }
+
+        List<redModel> redesActivas = redDao.findByEquipoAndEstado(equipo, 1);
+        for (redModel redActiva : redesActivas) {
+            redActiva.setEstado(0);
+            redDao.save(redActiva);
+        }
+
+        redModel red = new redModel();
+        red.setEquipo(equipo);
+        red.setIp(redRequestDTO.getIp());
+        red.setSegmento(redRequestDTO.getSegmento());
+        red.setDns(redRequestDTO.getDns());
+        red.setVlan(redRequestDTO.getVlan());
+        red.setSwitchRed(redRequestDTO.getSwitchRed());
+        red.setPuerto(redRequestDTO.getPuerto());
+        
+        if (redRequestDTO.getFechaRegistro() != null) {
+            red.setFecharegistro(redRequestDTO.getFechaRegistro());
+        } else {
+            red.setFecharegistro(LocalDate.now());
+        }
+        
+        red.setEstado(1);
+        
+        redModel savedRed = redDao.save(red);
+        
+        redResponseDTO response = new redResponseDTO();
+        response.setIdRed(savedRed.getIdRed());
+        response.setIp(savedRed.getIp());
+        response.setSegmento(savedRed.getSegmento());
+        response.setDns(savedRed.getDns());
+        response.setVlan(savedRed.getVlan());
+        response.setSwitchRed(savedRed.getSwitchRed());
+        response.setPuerto(savedRed.getPuerto());
+        response.setIdEquipo(equipo.getIdequipo());
+        response.setCodigoEquipo(equipo.getCodigo());
+        response.setFechaRegistro(savedRed.getFecharegistro());
+        response.setEstado(savedRed.getEstado());
+        
+        return response;
+    }
+    /*@Override
+    @Transactional
+    public redResponseDTO addRed(redRequestDTO redRequestDTO) {
+        if (redRequestDTO.getIdEquipo() == null) {
+            throw new RuntimeException("El ID del equipo es requerido");
+        }
+        
         equipoModel equipo = equipoDao.findById(redRequestDTO.getIdEquipo())
                 .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
 
@@ -36,19 +97,41 @@ public class redServiceImp implements redService {
             throw new RuntimeException("Ya existe una configuración con este puerto");
         }
 
-        redModel red = modelMapper.map(redRequestDTO, redModel.class);
+        redModel red = new redModel();
         red.setEquipo(equipo);
-        if (red.getFecharegistro() == null) {
+        red.setIp(redRequestDTO.getIp());
+        red.setSegmento(redRequestDTO.getSegmento());
+        red.setDns(redRequestDTO.getDns());
+        red.setVlan(redRequestDTO.getVlan());
+        red.setSwitchRed(redRequestDTO.getSwitchRed());
+        red.setPuerto(redRequestDTO.getPuerto());
+        
+        if (redRequestDTO.getFechaRegistro() != null) {
+            red.setFecharegistro(redRequestDTO.getFechaRegistro());
+        } else {
             red.setFecharegistro(LocalDate.now());
         }
-        red.setEstado(1);
+        
+        red.setEstado(redRequestDTO.getEstado() != 0 ? redRequestDTO.getEstado() : 1);
+        
         redModel savedRed = redDao.save(red);
-        redResponseDTO response = modelMapper.map(savedRed, redResponseDTO.class);
+        
+        // Crear la respuesta manualmente también
+        redResponseDTO response = new redResponseDTO();
+        response.setIdRed(savedRed.getIdRed());
+        response.setIp(savedRed.getIp());
+        response.setSegmento(savedRed.getSegmento());
+        response.setDns(savedRed.getDns());
+        response.setVlan(savedRed.getVlan());
+        response.setSwitchRed(savedRed.getSwitchRed());
+        response.setPuerto(savedRed.getPuerto());
         response.setIdEquipo(equipo.getIdequipo());
         response.setCodigoEquipo(equipo.getCodigo());
+        response.setFechaRegistro(savedRed.getFecharegistro());
+        response.setEstado(savedRed.getEstado());
         
         return response;
-    }
+    }*/
     
     @Override
     @Transactional
@@ -148,6 +231,63 @@ public class redServiceImp implements redService {
         response.setIdEquipo(updatedRed.getEquipo().getIdequipo());
         response.setCodigoEquipo(updatedRed.getEquipo().getCodigo());
         
+        return response;
+    }
+    
+    @Override
+    @Transactional
+    public List<redResponseDTO> getHistorialRedes(Long idEquipo) {
+        equipoModel equipo = equipoDao.findById(idEquipo)
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+
+        List<redModel> redes = redDao.findByEquipoOrderByFecharegistroDesc(equipo);
+
+        return redes.stream()
+                .map(red -> {
+                    redResponseDTO dto = new redResponseDTO();
+                    dto.setIdRed(red.getIdRed());
+                    dto.setIp(red.getIp());
+                    dto.setSegmento(red.getSegmento());
+                    dto.setDns(red.getDns());
+                    dto.setVlan(red.getVlan());
+                    dto.setSwitchRed(red.getSwitchRed());
+                    dto.setPuerto(red.getPuerto());
+                    dto.setIdEquipo(equipo.getIdequipo());
+                    dto.setCodigoEquipo(equipo.getCodigo());
+                    dto.setFechaRegistro(red.getFecharegistro());
+                    dto.setEstado(red.getEstado());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public redResponseDTO getRedActiva(Long idEquipo) {
+        equipoModel equipo = equipoDao.findById(idEquipo)
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+
+        List<redModel> redesActivas = redDao.findByEquipoAndEstado(equipo, 1);
+
+        if (redesActivas.isEmpty()) {
+            throw new RuntimeException("No hay configuración de red activa para este equipo");
+        }
+
+        redModel red = redesActivas.get(0);
+
+        redResponseDTO response = new redResponseDTO();
+        response.setIdRed(red.getIdRed());
+        response.setIp(red.getIp());
+        response.setSegmento(red.getSegmento());
+        response.setDns(red.getDns());
+        response.setVlan(red.getVlan());
+        response.setSwitchRed(red.getSwitchRed());
+        response.setPuerto(red.getPuerto());
+        response.setIdEquipo(equipo.getIdequipo());
+        response.setCodigoEquipo(equipo.getCodigo());
+        response.setFechaRegistro(red.getFecharegistro());
+        response.setEstado(red.getEstado());
+
         return response;
     }
 }

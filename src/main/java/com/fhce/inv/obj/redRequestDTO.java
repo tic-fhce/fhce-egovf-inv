@@ -13,16 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class redRequestDTO {
+    //@JsonIgnore
+    private Long idEquipo;
+    
 	private String ip;
     private String segmento;
     private String dns;
     private String vlan;
     private String switchRed;
-    private String puerto;
-    
-    @JsonIgnore
-    private Long idEquipo;
-    
+    private String puerto;    
     private LocalDate fechaRegistro;
     private int estado;
 }
