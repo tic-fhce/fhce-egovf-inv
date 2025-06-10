@@ -1,5 +1,6 @@
 package com.fhce.inv.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,6 +68,46 @@ public class perteneceServiceImp implements perteneceService {
     @Override
     @Transactional
     public perteneceResponseDTO addPertenece(perteneceRequestDTO perteneceRequestDTO) {
+        // Verificar que equipo existe
+        equipoModel equipo = equipoDao.findById(perteneceRequestDTO.getIdEquipo())
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+        
+        // Buscar asignaciones activas
+        List<perteneceModel> asignacionesActivas = perteneceDao.findByEquipoAndEstado(equipo, "ACTIVO");
+        if (!asignacionesActivas.isEmpty()) {
+            perteneceModel asignacionActiva = asignacionesActivas.get(0);
+            
+            // Si el equipo ya está asignado al mismo CIF
+            if (asignacionActiva.getCif().equals(perteneceRequestDTO.getCif())) {
+                throw new RuntimeException("Este equipo ya está asignado a este CIF: " + perteneceRequestDTO.getCif());
+            } else {
+                // NUEVA FUNCIONALIDAD: Desactivar asignación anterior automáticamente
+                asignacionActiva.setEstado("INACTIVO");
+                asignacionActiva.setFechaDel(LocalDate.now());
+                perteneceDao.save(asignacionActiva);
+                
+                System.out.println("Asignación anterior desactivada automáticamente. CIF anterior: " + asignacionActiva.getCif());
+            }
+        }
+
+        // Crear nueva asignación
+        perteneceModel pertenece = new perteneceModel();
+        pertenece.setCif(perteneceRequestDTO.getCif());
+        pertenece.setFechaAdd(perteneceRequestDTO.getFechaAdd() != null ? 
+                             perteneceRequestDTO.getFechaAdd() : LocalDate.now());
+        pertenece.setFechaDel(perteneceRequestDTO.getFechaDel());
+        pertenece.setEstado(perteneceRequestDTO.getEstado() != null ? 
+                           perteneceRequestDTO.getEstado() : "ACTIVO");
+        pertenece.setEquipo(equipo);
+        
+        perteneceModel savedPertenece = perteneceDao.save(pertenece);
+        
+        return createPerteneceResponseDTO(savedPertenece);
+    }
+    
+    /*@Override
+    @Transactional
+    public perteneceResponseDTO addPertenece(perteneceRequestDTO perteneceRequestDTO) {
         //Verif equipo existe
         equipoModel equipo = equipoDao.findById(perteneceRequestDTO.getIdEquipo())
                 .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
@@ -94,19 +135,9 @@ public class perteneceServiceImp implements perteneceService {
         
         perteneceModel savedPertenece = perteneceDao.save(pertenece);
         
-        /*perteneceResponseDTO response = new perteneceResponseDTO();
-        response.setIdPertenece(savedPertenece.getIdPertenece());
-        response.setCif(savedPertenece.getCif());
-        response.setIdEquipo(equipo.getIdequipo());
-        response.setCodigoEquipo(equipo.getCodigo());
-        response.setFechaAdd(savedPertenece.getFechaAdd());
-        response.setFechaDel(savedPertenece.getFechaDel());
-        response.setEstado(savedPertenece.getEstado());
-        
-        return response;*/
         
         return createPerteneceResponseDTO(savedPertenece);
-    }
+    }*/
     
     
     @Override
@@ -312,6 +343,31 @@ public class perteneceServiceImp implements perteneceService {
         }
         
         return asignaciones.stream()
+                .map(this::createPerteneceResponseDTO)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    @Transactional
+    public List<perteneceResponseDTO> getHistorialPorEquipo(Long idEquipo) {
+        equipoModel equipo = equipoDao.findById(idEquipo)
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+        
+        // Obtener todas las asignaciones ordenadas por fecha (más reciente primero)
+        List<perteneceModel> historial = perteneceDao.findByEquipoOrderByFechaAddDesc(equipo);
+        
+        return historial.stream()
+                .map(this::createPerteneceResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<perteneceResponseDTO> getHistorialPorCif(Long cif) {
+        // Obtener todas las asignaciones del CIF ordenadas por fecha (más reciente primero)
+        List<perteneceModel> historial = perteneceDao.findByCifOrderByFechaAddDesc(cif);
+        
+        return historial.stream()
                 .map(this::createPerteneceResponseDTO)
                 .collect(Collectors.toList());
     }

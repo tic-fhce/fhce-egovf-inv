@@ -2,7 +2,7 @@ package com.fhce.inv.obj;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class perteneceRequestDTO {
 	private Long cif;
 	
-	@JsonIgnore
+	//@JsonIgnore
     private Long idEquipo;
 	
     private LocalDate fechaAdd;

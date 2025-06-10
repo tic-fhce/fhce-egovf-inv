@@ -123,4 +123,30 @@ public class perteneceController {
             return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
     }
+    
+    @GetMapping("/historial/equipo/{idEquipo}")
+    public ResponseEntity<?> getHistorialPorEquipo(@PathVariable Long idEquipo) {
+        try {
+            List<perteneceResponseDTO> response = perteneceService.getHistorialPorEquipo(idEquipo);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("mensaje", "Error al obtener historial del equipo");
+            error.put("error", e.getMessage());
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/historial/cif/{cif}")
+    public ResponseEntity<?> getHistorialPorCif(@PathVariable Long cif) {
+        try {
+            List<perteneceResponseDTO> response = perteneceService.getHistorialPorCif(cif);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("mensaje", "Error al obtener historial del CIF");
+            error.put("error", e.getMessage());
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        }
+    }
 }

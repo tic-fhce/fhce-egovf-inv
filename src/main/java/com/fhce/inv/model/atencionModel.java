@@ -18,44 +18,28 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "atencion")
 public class atencionModel {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long idAtencion;
-	
-	@ManyToOne
-    @JoinColumn(name = "_01idequipo", nullable = false)
-    private equipoModel equipo;
-	
-	@Column(name = "_02fechasolicitud")
-	private LocalDate fechaSolicitud;
-	
-	@Column(name = "_03horasolicitud")
-	private String horaSolicitud;
-	
-	@Column(name = "_04especificacion")
-	private String especificacion;
-	
-	@Column(name = "_05error")
-	private String error;
-	
-	@Column(name = "_06solucion")
-	private String solucion;
-	
-	@Column(name = "_07fechaatencion")
-	private LocalDate fechaAtencion;
-	
-	@Column(name = "_08horaatencion")
-	private String horaAtencion;
-	
-	@Column(name = "_09estado", nullable = false)
-	private int estado;
-	
-	@ManyToOne
-    @JoinColumn(name = "_10idpertenece", nullable = false)
-    private perteneceModel pertenece;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    private Long idAtencion;
+    
+    @ManyToOne
+    @JoinColumn(name = "_01idsolicitud", nullable = false)
+    private solicitudAtencionModel solicitud;
+    
+    @Column(name = "_02solucion")
+    private String solucion;
+    
+    @Column(name = "_03fechaatencion", nullable = false)
+    private LocalDate fechaAtencion;
+    
+    @Column(name = "_04horaatencion")
+    private String horaAtencion;
+    
+    @Column(name = "_05observaciones")
+    private String observaciones; // Para notas adicionales del técnico
 }

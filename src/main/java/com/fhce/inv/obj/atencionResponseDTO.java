@@ -12,15 +12,9 @@ import lombok.NoArgsConstructor;
 
 public class atencionResponseDTO {
 	private Long idAtencion;
-    private Long idEquipo;
-    private String codigoEquipo;
-    private LocalDate fechaSolicitud;
-    private String horaSolicitud;
-    private String especificacion;
-    private String error;
+    private Long idSolicitud;
     private String solucion;
     private LocalDate fechaAtencion;
     private String horaAtencion;
-    private Integer estado;
-    private Long idPertenece;
+    private String observaciones;
 }

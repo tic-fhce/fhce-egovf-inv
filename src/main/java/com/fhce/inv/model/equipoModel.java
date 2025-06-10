@@ -61,8 +61,11 @@ public class equipoModel {
     @OneToMany(mappedBy = "equipo")
     private List<ubicacionModel> ubicaciones;
     
+    /*@OneToMany(mappedBy = "equipo")
+    private List<atencionModel> atenciones;*/
+    
     @OneToMany(mappedBy = "equipo")
-    private List<atencionModel> atenciones;
+    private List<solicitudAtencionModel> solicitudes;
     
     @OneToMany(mappedBy = "equipo")
     private List<perteneceModel> asignaciones;

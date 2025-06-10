@@ -222,14 +222,37 @@ public class redServiceImp implements redService {
         if (estado != 1 && estado != 0) {
             throw new RuntimeException("Estado no válido. Use 1 para activo, 0 para inactivo");
         }
+        
         redModel red = redDao.findById(id)
                 .orElseThrow(() -> new RuntimeException("Configuración de red no encontrada"));
-        red.setEstado(estado);
         
+        // SI SE VA A ACTIVAR ESTA RED, DESACTIVAR LAS OTRAS DEL MISMO EQUIPO
+        if (estado == 1) {
+            List<redModel> redesActivas = redDao.findByEquipoAndEstado(red.getEquipo(), 1);
+            for (redModel redActiva : redesActivas) {
+                // Solo desactivar las otras, no la que estamos activando
+                if (!redActiva.getIdRed().equals(id)) {
+                    redActiva.setEstado(0);
+                    redDao.save(redActiva);
+                }
+            }
+        }
+        
+        red.setEstado(estado);
         redModel updatedRed = redDao.save(red);
-        redResponseDTO response = modelMapper.map(updatedRed, redResponseDTO.class);
+        
+        redResponseDTO response = new redResponseDTO();
+        response.setIdRed(updatedRed.getIdRed());
+        response.setIp(updatedRed.getIp());
+        response.setSegmento(updatedRed.getSegmento());
+        response.setDns(updatedRed.getDns());
+        response.setVlan(updatedRed.getVlan());
+        response.setSwitchRed(updatedRed.getSwitchRed());
+        response.setPuerto(updatedRed.getPuerto());
         response.setIdEquipo(updatedRed.getEquipo().getIdequipo());
         response.setCodigoEquipo(updatedRed.getEquipo().getCodigo());
+        response.setFechaRegistro(updatedRed.getFecharegistro());
+        response.setEstado(updatedRed.getEstado());
         
         return response;
     }
