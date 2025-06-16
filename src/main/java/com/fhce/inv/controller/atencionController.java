@@ -100,4 +100,17 @@ public class atencionController {
             return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/cif/{cif}")
+    public ResponseEntity<?> getAtencionesPorCif(@PathVariable Long cif) {
+        try {
+            List<atencionResponseDTO> response = atencionService.getAtencionesPorCif(cif);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("mensaje", "Error al obtener atenciones del CIF");
+            error.put("error", e.getMessage());
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        }
+    }
 }

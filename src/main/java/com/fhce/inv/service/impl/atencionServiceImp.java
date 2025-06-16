@@ -126,4 +126,14 @@ public class atencionServiceImp implements atencionService {
         
         return dto;
     }
+    
+    @Override
+    @Transactional
+    public List<atencionResponseDTO> getAtencionesPorCif(Long cif) {
+        List<atencionModel> atenciones = atencionDao.findByCifHistorico(cif);
+        
+        return atenciones.stream()
+                .map(this::convertAtencionToDTO)
+                .collect(Collectors.toList());
+    }
 }

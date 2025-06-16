@@ -11,5 +11,6 @@ public interface atencionService {
     
     List<atencionResponseDTO> getAtencionesPorSolicitud(Long idSolicitud);
     List<atencionResponseDTO> getAtencionesPorEquipo(Long idEquipo);
+    List<atencionResponseDTO> getAtencionesPorCif(Long cif);
     List<atencionResponseDTO> getTodasLasAtenciones();
 }

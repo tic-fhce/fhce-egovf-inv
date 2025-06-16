@@ -26,4 +26,19 @@ public interface atencionDao extends JpaRepository<atencionModel, Long> {
            "ORDER BY a.fechaAtencion DESC")*/
 
     List<atencionModel> findAllByOrderByFechaAtencionDesc();
+    
+    @Query("SELECT a FROM atencionModel a " +
+            "JOIN a.solicitud s " +
+            "WHERE s.equipo.idequipo IN (" +
+            "  SELECT p1.equipo.idequipo FROM perteneceModel p1 " +
+            "  WHERE p1.cif = :cif " +
+            "  AND p1.fechaAdd <= s.fechaSolicitud " +
+            "  AND p1.fechaAdd = (" +
+            "    SELECT MAX(p2.fechaAdd) FROM perteneceModel p2 " +
+            "    WHERE p2.equipo = p1.equipo " +
+            "    AND p2.fechaAdd <= s.fechaSolicitud" +
+            "  )" +
+            ") " +
+            "ORDER BY a.fechaAtencion DESC")
+     List<atencionModel> findByCifHistorico(@Param("cif") Long cif);
 }
