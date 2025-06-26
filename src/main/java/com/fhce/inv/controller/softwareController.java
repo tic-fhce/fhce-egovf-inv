@@ -7,11 +7,11 @@ import java.util.HashMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fhce.inv.obj.softwareRequestDTO;
@@ -27,7 +27,7 @@ public class softwareController {
 
     private final softwareService softwareService;
     
-    @PostMapping("/addSoftware")
+    @PostMapping("/add")
     public ResponseEntity<?> addSoftware(@RequestBody softwareRequestDTO softwareRequestDTO) {
         try {
             softwareResponseDTO response = softwareService.addSoftware(softwareRequestDTO);
@@ -39,9 +39,9 @@ public class softwareController {
         }
     }
     
-    @PutMapping("/updateSoftware/{id}")
+    @PutMapping("/update")
     public ResponseEntity<?> updateSoftware(
-            @PathVariable Long id,
+            @RequestParam Long id,
             @RequestBody softwareRequestDTO softwareRequestDTO) {
         try {
             softwareResponseDTO response = softwareService.updateSoftware(id, softwareRequestDTO);
@@ -53,8 +53,8 @@ public class softwareController {
         }
     }
     
-    @GetMapping("/getSoftware/{id}")
-    public ResponseEntity<?> getSoftware(@PathVariable Long id) {
+    @GetMapping("/get")
+    public ResponseEntity<?> getSoftware(@RequestParam Long id) {
         try {
             softwareResponseDTO response = softwareService.getSoftware(id);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -65,8 +65,8 @@ public class softwareController {
         }
     }
     
-    @GetMapping("/getSoftwarePorEquipo/{idEquipo}")
-    public ResponseEntity<?> getSoftwarePorEquipo(@PathVariable Long idEquipo) {
+    @GetMapping("/porEquipo")
+    public ResponseEntity<?> getSoftwarePorEquipo(@RequestParam Long idEquipo) {
         try {
             List<softwareResponseDTO> response = softwareService.getSoftwarePorEquipo(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -77,10 +77,10 @@ public class softwareController {
         }
     }
     
-    @PutMapping("/cambiarEstadoSoftware/{id}/{estado}")
+    @PutMapping("/cambiarEstado")
     public ResponseEntity<?> cambiarEstadoSoftware(
-            @PathVariable Long id,
-            @PathVariable int estado) {
+            @RequestParam Long id,
+            @RequestParam int estado) {
         try {
             softwareResponseDTO response = softwareService.cambiarEstadoSoftware(id, estado);
             return new ResponseEntity<>(response, HttpStatus.OK);

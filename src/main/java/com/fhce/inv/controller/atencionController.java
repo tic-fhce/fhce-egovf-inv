@@ -15,7 +15,7 @@ import com.fhce.inv.service.atencionService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/atencion/")
+@RequestMapping("/atencion")
 @RequiredArgsConstructor
 public class atencionController {
 
@@ -34,9 +34,9 @@ public class atencionController {
         }
     }
     
-    @PutMapping("/{idAtencion}")
+    @PutMapping("/update")
     public ResponseEntity<?> actualizarAtencion(
-            @PathVariable Long idAtencion,
+            @RequestParam Long idAtencion,
             @RequestBody atencionRequestDTO request) {
         try {
             atencionResponseDTO response = atencionService.actualizarAtencion(idAtencion, request);
@@ -49,8 +49,8 @@ public class atencionController {
         }
     }
     
-    @GetMapping("/{idAtencion}")
-    public ResponseEntity<?> getAtencion(@PathVariable Long idAtencion) {
+    @GetMapping("/get")
+    public ResponseEntity<?> getAtencion(@RequestParam Long idAtencion) {
         try {
             atencionResponseDTO response = atencionService.getAtencion(idAtencion);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -62,8 +62,8 @@ public class atencionController {
         }
     }
     
-    @GetMapping("/AtencionPorSolicitud/{idSolicitud}")
-    public ResponseEntity<?> getAtencionesPorSolicitud(@PathVariable Long idSolicitud) {
+    @GetMapping("/porSolicitud")
+    public ResponseEntity<?> getAtencionesPorSolicitud(@RequestParam Long idSolicitud) {
         try {
             List<atencionResponseDTO> response = atencionService.getAtencionesPorSolicitud(idSolicitud);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -75,8 +75,8 @@ public class atencionController {
         }
     }
     
-    @GetMapping("/AtencionesPorEquipo/{idEquipo}")
-    public ResponseEntity<?> getAtencionesPorEquipo(@PathVariable Long idEquipo) {
+    @GetMapping("/porEquipo")
+    public ResponseEntity<?> getAtencionesPorEquipo(@RequestParam Long idEquipo) {
         try {
             List<atencionResponseDTO> response = atencionService.getAtencionesPorEquipo(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -88,7 +88,7 @@ public class atencionController {
         }
     }
     
-    @GetMapping("/TodasAtenciones")
+    @GetMapping("/todas")
     public ResponseEntity<?> getTodasLasAtenciones() {
         try {
             List<atencionResponseDTO> response = atencionService.getTodasLasAtenciones();
@@ -101,8 +101,8 @@ public class atencionController {
         }
     }
     
-    @GetMapping("/cif/{cif}")
-    public ResponseEntity<?> getAtencionesPorCif(@PathVariable Long cif) {
+    @GetMapping("/porCif")
+    public ResponseEntity<?> getAtencionesPorCif(@RequestParam Long cif) {
         try {
             List<atencionResponseDTO> response = atencionService.getAtencionesPorCif(cif);
             return new ResponseEntity<>(response, HttpStatus.OK);

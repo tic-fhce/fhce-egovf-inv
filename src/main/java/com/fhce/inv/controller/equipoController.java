@@ -7,11 +7,11 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fhce.inv.obj.equipoCompletoRequestDTO;
@@ -28,7 +28,7 @@ public class equipoController {
 
     private final equipoService equipoService;
     
-    @PostMapping("/addEquipo")
+    @PostMapping("/add")
     public ResponseEntity<?> addEquipo(@RequestBody equipoCompletoRequestDTO request) {
         try {
             equipoResponseDTO response = equipoService.addEquipo(
@@ -49,8 +49,8 @@ public class equipoController {
         }
     }
     
-    @GetMapping("/getEquipotipo/{idTipo}")
-    public ResponseEntity<List<equipoResponseDTO>> getEquipoTipo(@PathVariable Long idTipo) {
+    @GetMapping("/porTipo")
+    public ResponseEntity<List<equipoResponseDTO>> getEquipoTipo(@RequestParam Long idTipo) {
         try {
             List<equipoResponseDTO> response = equipoService.getEquipoTipo(idTipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -59,9 +59,9 @@ public class equipoController {
         }
     }
     
-    @PutMapping("/updateEquipo/{idEquipo}")
+    @PutMapping("/update")
     public ResponseEntity<?> updateEquipo(
-            @PathVariable Long idEquipo,
+            @RequestParam Long idEquipo,
             @RequestBody equipoRequestDTO equipoRequestDTO) {
         try {
             equipoResponseDTO response = equipoService.updateEquipo(idEquipo, equipoRequestDTO);
@@ -75,7 +75,7 @@ public class equipoController {
         }
     }
     
-    @GetMapping("/getTodoEquipo")
+    @GetMapping("/todos")
     public ResponseEntity<?> getAllEquipos() {
         try {
             List<equipoResponseDTO> response = equipoService.getAllEquipos();

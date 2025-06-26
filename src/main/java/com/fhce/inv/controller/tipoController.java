@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fhce.inv.obj.equipoResponseDTO;
@@ -25,7 +25,7 @@ public class tipoController {
 
     private final tipoService tipoService;
     
-    @PostMapping("/addTipo")
+    @PostMapping("/add")
     public ResponseEntity<tipoResponseDTO> addTipo(@RequestBody tipoRequestDTO tipoRequestDTO) {
         try {
             tipoResponseDTO response = tipoService.addTipo(tipoRequestDTO);
@@ -35,8 +35,8 @@ public class tipoController {
         }
     }
     
-    @GetMapping("/getTipo/{id}")
-    public ResponseEntity<tipoResponseDTO> getTipo(@PathVariable Long id) {
+    @GetMapping("/get")
+    public ResponseEntity<tipoResponseDTO> getTipo(@RequestParam Long id) {
         try {
             tipoResponseDTO response = tipoService.getTipo(id);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -45,8 +45,8 @@ public class tipoController {
         }
     }
     
-    @GetMapping("/getEquiposPorTipo/{idTipo}")
-    public ResponseEntity<List<equipoResponseDTO>> getEquiposPorTipo(@PathVariable Long idTipo) {
+    @GetMapping("/equipos")
+    public ResponseEntity<List<equipoResponseDTO>> getEquiposPorTipo(@RequestParam Long idTipo) {
         try {
             List<equipoResponseDTO> response = tipoService.getEquiposPorTipo(idTipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -56,4 +56,3 @@ public class tipoController {
         }
     }
 }
-

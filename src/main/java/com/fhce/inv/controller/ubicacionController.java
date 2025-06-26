@@ -7,11 +7,11 @@ import java.util.HashMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fhce.inv.obj.ubicacionRequestDTO;
@@ -27,7 +27,7 @@ public class ubicacionController {
 
     private final ubicacionService ubicacionService;
     
-    @PostMapping("/addUbicacion")
+    @PostMapping("/add")
     public ResponseEntity<?> addUbicacion(@RequestBody ubicacionRequestDTO ubicacionRequestDTO) {
         try {
             ubicacionResponseDTO response = ubicacionService.addUbicacion(ubicacionRequestDTO);
@@ -39,9 +39,9 @@ public class ubicacionController {
         }
     }
     
-    @PutMapping("/updateUbicacion/{id}")
+    @PutMapping("/update")
     public ResponseEntity<?> updateUbicacion(
-            @PathVariable Long id,
+            @RequestParam Long id,
             @RequestBody ubicacionRequestDTO ubicacionRequestDTO) {
         try {
             ubicacionResponseDTO response = ubicacionService.updateUbicacion(id, ubicacionRequestDTO);
@@ -53,8 +53,8 @@ public class ubicacionController {
         }
     }
     
-    @GetMapping("/getUbicacion/{id}")
-    public ResponseEntity<?> getUbicacion(@PathVariable Long id) {
+    @GetMapping("/get")
+    public ResponseEntity<?> getUbicacion(@RequestParam Long id) {
         try {
             ubicacionResponseDTO response = ubicacionService.getUbicacion(id);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -65,8 +65,8 @@ public class ubicacionController {
         }
     }
     
-    @GetMapping("/getUbicacionesPorEquipo/{idEquipo}")
-    public ResponseEntity<?> getUbicacionesPorEquipo(@PathVariable Long idEquipo) {
+    @GetMapping("/porEquipo")
+    public ResponseEntity<?> getUbicacionesPorEquipo(@RequestParam Long idEquipo) {
         try {
             List<ubicacionResponseDTO> response = ubicacionService.getUbicacionesPorEquipo(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -77,8 +77,8 @@ public class ubicacionController {
         }
     }
     
-    @GetMapping("/getUbicacionActiva/{idEquipo}")
-    public ResponseEntity<?> getUbicacionActiva(@PathVariable Long idEquipo) {
+    @GetMapping("/activa")
+    public ResponseEntity<?> getUbicacionActiva(@RequestParam Long idEquipo) {
         try {
             ubicacionResponseDTO response = ubicacionService.getUbicacionActiva(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -89,8 +89,8 @@ public class ubicacionController {
         }
     }
 
-    @GetMapping("/getHistorialUbicaciones/{idEquipo}")
-    public ResponseEntity<?> getHistorialUbicaciones(@PathVariable Long idEquipo) {
+    @GetMapping("/historial")
+    public ResponseEntity<?> getHistorialUbicaciones(@RequestParam Long idEquipo) {
         try {
             List<ubicacionResponseDTO> response = ubicacionService.getHistorialUbicaciones(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -101,10 +101,10 @@ public class ubicacionController {
         }
     }
 
-    @PutMapping("/cambiarEstadoUbicacion/{id}/{estado}")
+    @PutMapping("/cambiarEstado")
     public ResponseEntity<?> cambiarEstadoUbicacion(
-            @PathVariable Long id,
-            @PathVariable int estado) {
+            @RequestParam Long id,
+            @RequestParam int estado) {
         try {
             ubicacionResponseDTO response = ubicacionService.cambiarEstadoUbicacion(id, estado);
             return new ResponseEntity<>(response, HttpStatus.OK);

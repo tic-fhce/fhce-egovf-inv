@@ -7,11 +7,11 @@ import java.util.HashMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fhce.inv.obj.redRequestDTO;
@@ -27,7 +27,7 @@ public class redController {
 
     private final redService redService;
     
-    @PostMapping("/addRed")
+    @PostMapping("/add")
     public ResponseEntity<?> addRed(@RequestBody redRequestDTO redRequestDTO) {
         try {
             redResponseDTO response = redService.addRed(redRequestDTO);
@@ -39,9 +39,9 @@ public class redController {
         }
     }
     
-    @PutMapping("/updateRed/{id}")
+    @PutMapping("/update")
     public ResponseEntity<?> updateRed(
-            @PathVariable Long id,
+            @RequestParam Long id,
             @RequestBody redRequestDTO redRequestDTO) {
         try {
             redResponseDTO response = redService.updateRed(id, redRequestDTO);
@@ -53,8 +53,8 @@ public class redController {
         }
     }
     
-    @GetMapping("/getRed/{id}")
-    public ResponseEntity<?> getRed(@PathVariable Long id) {
+    @GetMapping("/get")
+    public ResponseEntity<?> getRed(@RequestParam Long id) {
         try {
             redResponseDTO response = redService.getRed(id);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -65,8 +65,8 @@ public class redController {
         }
     }
     
-    @GetMapping("/getRedPorEquipo/{idEquipo}")
-    public ResponseEntity<?> getRedPorEquipo(@PathVariable Long idEquipo) {
+    @GetMapping("/porEquipo")
+    public ResponseEntity<?> getRedPorEquipo(@RequestParam Long idEquipo) {
         try {
             List<redResponseDTO> response = redService.getRedPorEquipo(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -77,10 +77,10 @@ public class redController {
         }
     }
     
-    @PutMapping("/cambiarEstadoRed/{id}/{estado}")
+    @PutMapping("/cambiarEstado")
     public ResponseEntity<?> cambiarEstadoRed(
-            @PathVariable Long id,
-            @PathVariable int estado) {
+            @RequestParam Long id,
+            @RequestParam int estado) {
         try {
             redResponseDTO response = redService.cambiarEstadoRed(id, estado);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -91,9 +91,8 @@ public class redController {
         }
     }
     
-    
-    @GetMapping("/getRedActiva/{idEquipo}")
-    public ResponseEntity<?> getRedActiva(@PathVariable Long idEquipo) {
+    @GetMapping("/activa")
+    public ResponseEntity<?> getRedActiva(@RequestParam Long idEquipo) {
         try {
             redResponseDTO response = redService.getRedActiva(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -104,8 +103,8 @@ public class redController {
         }
     }
     
-    @GetMapping("/getHistorialRedes/{idEquipo}")
-    public ResponseEntity<?> getHistorialRedes(@PathVariable Long idEquipo) {
+    @GetMapping("/historial")
+    public ResponseEntity<?> getHistorialRedes(@RequestParam Long idEquipo) {
         try {
             List<redResponseDTO> response = redService.getHistorialRedes(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);

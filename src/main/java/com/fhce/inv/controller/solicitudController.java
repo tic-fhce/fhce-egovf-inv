@@ -22,7 +22,7 @@ public class solicitudController {
 
     private final solicitudService solicitudService;
     
-    @PostMapping("/addSolicitud")
+    @PostMapping("/add")
     public ResponseEntity<?> crearSolicitud(@RequestBody solicitudAtencionRequestDTO request) {
         try {
             solicitudAtencionResponseDTO response = solicitudService.crearSolicitud(request);
@@ -35,9 +35,9 @@ public class solicitudController {
         }
     }
     
-    @PutMapping("/{idSolicitud}")
+    @PutMapping("/update")
     public ResponseEntity<?> actualizarSolicitud(
-            @PathVariable Long idSolicitud,
+            @RequestParam Long idSolicitud,
             @RequestBody solicitudAtencionRequestDTO request) {
         try {
             solicitudAtencionResponseDTO response = solicitudService.actualizarSolicitud(idSolicitud, request);
@@ -50,8 +50,8 @@ public class solicitudController {
         }
     }
     
-    @GetMapping("/{idSolicitud}")
-    public ResponseEntity<?> getSolicitudCompleta(@PathVariable Long idSolicitud) {
+    @GetMapping("/get")
+    public ResponseEntity<?> getSolicitudCompleta(@RequestParam Long idSolicitud) {
         try {
             solicitudAtencionCompletaDTO response = solicitudService.getSolicitudCompleta(idSolicitud);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -89,8 +89,8 @@ public class solicitudController {
         }
     }
     
-    @GetMapping("/SolicitudesPorEquipo/{idEquipo}")
-    public ResponseEntity<?> getSolicitudesPorEquipo(@PathVariable Long idEquipo) {
+    @GetMapping("/porEquipo")
+    public ResponseEntity<?> getSolicitudesPorEquipo(@RequestParam Long idEquipo) {
         try {
             List<solicitudAtencionCompletaDTO> response = solicitudService.getSolicitudesPorEquipo(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -102,8 +102,8 @@ public class solicitudController {
         }
     }
     
-    @GetMapping("/SolicitudesCif/{cif}")
-    public ResponseEntity<?> getSolicitudesPorCif(@PathVariable Long cif) {
+    @GetMapping("/porCif")
+    public ResponseEntity<?> getSolicitudesPorCif(@RequestParam Long cif) {
         try {
             List<solicitudAtencionCompletaDTO> response = solicitudService.getSolicitudesPorCif(cif);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -115,7 +115,7 @@ public class solicitudController {
         }
     }
     
-    @GetMapping("/TodasSolicitudes")
+    @GetMapping("/todas")
     public ResponseEntity<?> getTodasLasSolicitudes() {
         try {
             List<solicitudAtencionCompletaDTO> response = solicitudService.getTodasLasSolicitudes();

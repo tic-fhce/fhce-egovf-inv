@@ -7,11 +7,11 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fhce.inv.obj.perteneceRequestDTO;
@@ -27,7 +27,7 @@ public class perteneceController {
 
     private final perteneceService perteneceService;
     
-    @PostMapping("/addPertenece")
+    @PostMapping("/add")
     public ResponseEntity<perteneceResponseDTO> addPertenece(@RequestBody perteneceRequestDTO perteneceRequestDTO) {
         try {
             perteneceResponseDTO response = perteneceService.addPertenece(perteneceRequestDTO);
@@ -38,9 +38,9 @@ public class perteneceController {
         }
     }
     
-    @PutMapping("/updatePertenece/{id}")
+    @PutMapping("/update")
     public ResponseEntity<perteneceResponseDTO> updatePertenece(
-            @PathVariable Long id,
+            @RequestParam Long id,
             @RequestBody perteneceRequestDTO perteneceRequestDTO) {
         try {
             perteneceResponseDTO response = perteneceService.updatePertenece(id, perteneceRequestDTO);
@@ -51,9 +51,9 @@ public class perteneceController {
         }
     }
     
-    @PutMapping("/updatePerteneceIdEquipo/{idEquipo}")
+    @PutMapping("/updatePorEquipo")
     public ResponseEntity<?> updatePerteneceByEquipo(
-            @PathVariable Long idEquipo,
+            @RequestParam Long idEquipo,
             @RequestBody perteneceRequestDTO perteneceRequestDTO) {
         try {
             perteneceResponseDTO response = perteneceService.updatePerteneceIdEquipo(idEquipo, perteneceRequestDTO);
@@ -67,8 +67,8 @@ public class perteneceController {
         }
     }
     
-    @GetMapping("/getPertenece/{id}")
-    public ResponseEntity<perteneceResponseDTO> getPertenece(@PathVariable Long id) {
+    @GetMapping("/get")
+    public ResponseEntity<perteneceResponseDTO> getPertenece(@RequestParam Long id) {
         try {
             perteneceResponseDTO response = perteneceService.getPertenece(id);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -77,8 +77,8 @@ public class perteneceController {
         }
     }
     
-    @GetMapping("/getPertenecePorCif/{cif}")
-    public ResponseEntity<List<perteneceResponseDTO>> getPerteneceByCif(@PathVariable Long cif) {
+    @GetMapping("/porCif")
+    public ResponseEntity<List<perteneceResponseDTO>> getPerteneceByCif(@RequestParam Long cif) {
         try {
             List<perteneceResponseDTO> response = perteneceService.getPerteneceByCif(cif);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -87,8 +87,8 @@ public class perteneceController {
         }
     }
     
-    @GetMapping("/getPertenecePorEquipo/{idEquipo}")
-    public ResponseEntity<List<perteneceResponseDTO>> getPertenecePorEquipo(@PathVariable Long idEquipo) {
+    @GetMapping("/porEquipo")
+    public ResponseEntity<List<perteneceResponseDTO>> getPertenecePorEquipo(@RequestParam Long idEquipo) {
         try {
             List<perteneceResponseDTO> response = perteneceService.getPertenecePorEquipo(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -97,11 +97,10 @@ public class perteneceController {
         }
     }
     
-    
-    @GetMapping("/getPertenecePorEquipoYCif/{idEquipo}/{cif}")
+    @GetMapping("/porEquipoYCif")
     public ResponseEntity<?> getPertenecePorEquipoYCif(
-            @PathVariable Long idEquipo,
-            @PathVariable Long cif) {
+            @RequestParam Long idEquipo,
+            @RequestParam Long cif) {
         try {
             List<perteneceResponseDTO> response = perteneceService.getPertenecePorEquipoYCif(idEquipo, cif);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -112,8 +111,8 @@ public class perteneceController {
         }
     }
     
-    @GetMapping("/getEquiposPorTipo/{idTipo}")
-    public ResponseEntity<?> getEquiposPorTipo(@PathVariable Long idTipo) {
+    @GetMapping("/equiposPorTipo")
+    public ResponseEntity<?> getEquiposPorTipo(@RequestParam Long idTipo) {
         try {
             List<perteneceResponseDTO> response = perteneceService.getEquiposPorTipo(idTipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -124,8 +123,8 @@ public class perteneceController {
         }
     }
     
-    @GetMapping("/historial/equipo/{idEquipo}")
-    public ResponseEntity<?> getHistorialPorEquipo(@PathVariable Long idEquipo) {
+    @GetMapping("/historial/equipo")
+    public ResponseEntity<?> getHistorialPorEquipo(@RequestParam Long idEquipo) {
         try {
             List<perteneceResponseDTO> response = perteneceService.getHistorialPorEquipo(idEquipo);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -137,8 +136,8 @@ public class perteneceController {
         }
     }
 
-    @GetMapping("/historial/cif/{cif}")
-    public ResponseEntity<?> getHistorialPorCif(@PathVariable Long cif) {
+    @GetMapping("/historial/cif")
+    public ResponseEntity<?> getHistorialPorCif(@RequestParam Long cif) {
         try {
             List<perteneceResponseDTO> response = perteneceService.getHistorialPorCif(cif);
             return new ResponseEntity<>(response, HttpStatus.OK);
