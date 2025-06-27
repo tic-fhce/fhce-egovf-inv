@@ -49,7 +49,7 @@ public class atencionController {
         }
     }
     
-    @GetMapping("/get")
+    @GetMapping("/porIdAtencion")
     public ResponseEntity<?> getAtencion(@RequestParam Long idAtencion) {
         try {
             atencionResponseDTO response = atencionService.getAtencion(idAtencion);

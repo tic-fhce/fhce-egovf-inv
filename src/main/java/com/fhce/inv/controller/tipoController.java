@@ -35,7 +35,7 @@ public class tipoController {
         }
     }
     
-    @GetMapping("/get")
+    @GetMapping("/porIdTipo")
     public ResponseEntity<tipoResponseDTO> getTipo(@RequestParam Long id) {
         try {
             tipoResponseDTO response = tipoService.getTipo(id);

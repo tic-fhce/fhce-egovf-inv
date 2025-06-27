@@ -50,7 +50,7 @@ public class solicitudController {
         }
     }
     
-    @GetMapping("/get")
+    @GetMapping("/porIdSolicitud")
     public ResponseEntity<?> getSolicitudCompleta(@RequestParam Long idSolicitud) {
         try {
             solicitudAtencionCompletaDTO response = solicitudService.getSolicitudCompleta(idSolicitud);

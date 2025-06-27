@@ -53,7 +53,7 @@ public class redController {
         }
     }
     
-    @GetMapping("/get")
+    @GetMapping("/porIdRed")
     public ResponseEntity<?> getRed(@RequestParam Long id) {
         try {
             redResponseDTO response = redService.getRed(id);

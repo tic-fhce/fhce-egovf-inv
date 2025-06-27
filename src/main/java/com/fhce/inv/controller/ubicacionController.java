@@ -53,7 +53,7 @@ public class ubicacionController {
         }
     }
     
-    @GetMapping("/get")
+    @GetMapping("/porIdUbicacion")
     public ResponseEntity<?> getUbicacion(@RequestParam Long id) {
         try {
             ubicacionResponseDTO response = ubicacionService.getUbicacion(id);

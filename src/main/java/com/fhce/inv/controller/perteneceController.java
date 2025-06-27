@@ -67,7 +67,7 @@ public class perteneceController {
         }
     }
     
-    @GetMapping("/get")
+    @GetMapping("/porIdPertenece")
     public ResponseEntity<perteneceResponseDTO> getPertenece(@RequestParam Long id) {
         try {
             perteneceResponseDTO response = perteneceService.getPertenece(id);

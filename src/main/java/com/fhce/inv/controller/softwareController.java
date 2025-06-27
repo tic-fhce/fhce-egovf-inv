@@ -53,7 +53,7 @@ public class softwareController {
         }
     }
     
-    @GetMapping("/get")
+    @GetMapping("/getIdSoftware")
     public ResponseEntity<?> getSoftware(@RequestParam Long id) {
         try {
             softwareResponseDTO response = softwareService.getSoftware(id);
